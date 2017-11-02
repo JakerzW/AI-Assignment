@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 		  }
 	  }
 
-
+	  /*
 	  //NEIGHBOURING
 	  int i = 0;
 	  for (size_t y = 0; y < GRIDHEIGHT; y++)

@@ -8,6 +8,8 @@ class Node
 	private: 
 		int m_PosX;
 		int m_PosY;
+		int c_gridHeight;
+		int c_gridWidth;
 
 		Surface* s_surface;
 	public:				
@@ -17,7 +19,7 @@ class Node
 		int getPosY();
 		void setPosX(int x);
 		void setPosY(int x);
-		void setNeighbours(std::vector<Node> nodes;);
+		void setNeighbours(std::vector<Node> nodes);
 		void Node::setSurface(Surface* surfaceImage);
 		Surface* Node::getImage();
 		std::vector<Node*> neighbours;
