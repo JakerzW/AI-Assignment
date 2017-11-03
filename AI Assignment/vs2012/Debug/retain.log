@@ -1,15 +1,7 @@
-﻿  node.cpp
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(48): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(50): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(87): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(96): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(101): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(108): warning C4018: '<': signed/unsigned mismatch
-c:\users\jaker\documents\github\ai-assignment\ai assignment\node.cpp(117): warning C4018: '<': signed/unsigned mismatch
+﻿  main.cpp
+  allNodes.cpp
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\allnodes.cpp(18): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\allnodes.cpp(20): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  Compiling...
-  main.cpp
-  Generating Code...
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.exe
   retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.pdb (Full PDB)

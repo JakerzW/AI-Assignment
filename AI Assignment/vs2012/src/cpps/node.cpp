@@ -29,8 +29,6 @@ void Node::setPosY(int y)
 	m_PosY = y * c_nodeHeight;
 }
 
-
-
 void Node::setSurface(Surface* surfaceImage)
 {
 	s_surface = surfaceImage;
@@ -49,14 +47,8 @@ void Node::setNeighbours(std::vector<Node> nodes)
 	{
 		for (size_t x = 0; x < c_gridWidth; x++)
 		{
-
-
-
-
-
 			i++;
-
-
+			
 			/*//RIGHT AND LEFT
 			if (x == (c_gridWidth - 1))	//Left
 			{

@@ -24,7 +24,7 @@ void allNodes::setupNodes(std::shared_ptr<Surface> screen, std::shared_ptr<Surfa
 			node.s_screen = screen;
 			node.setPosX(x);
 			node.setPosY(y);
-			m_nodes.push_back(node);
+			m_allNodes.push_back(node);
 		}
 	}
 }
