@@ -1,8 +1,8 @@
 #include <SDL/SDL.h>
 #undef main
 
-//#define GRIDWIDTH 25
-//#define GRIDHEIGHT 25
+#define GRIDWIDTH 25
+#define GRIDHEIGHT 25
 
 #ifdef _MSC_VER
 #include <windows.h>
@@ -13,7 +13,6 @@
 
 #include "../headers/node.h"
 #include "../headers/surface.h"
-#include "../headers/allNodes.h"
 
 #include <iostream>
 #include <memory>
@@ -26,13 +25,31 @@ int main(int argc, char *argv[])
   
   SDL_Init(SDL_INIT_EVERYTHING);
 
-  allNodes allNodes;
-  allNodes.setupNodes(screen, image);
+	  screen = Surface::setVideoMode();
+	  image = Surface::loadBmp("vs2012/images/tile.bmp");
 
-	  for (size_t i = 0; i < allNodes.m_allNodes.size(); i++)
+	  std::vector<Node> m_allNodes;
+
+	  //Create the nodes
+	  for (size_t y = 0; y < GRIDHEIGHT; y++)
 	  {
-		  allNodes.m_allNodes.at(i).drawNode();
+		  for (size_t x = 0; x < GRIDWIDTH; x++)
+		  {
+			  Node node;
+			  node.setNodeImage(image.get());
+			  node.s_screen = screen;
+			  node.setPosX(x);
+			  node.setPosY(y);
+			  m_allNodes.push_back(node);
+		  }
 	  }
+
+	  //Draw nodes
+	  for (size_t i = 0; i < m_allNodes.size(); i++)
+	  {
+		  m_allNodes.at(i).drawNode();
+	  }
+
 
   screen->flip();
 
@@ -44,3 +61,5 @@ int main(int argc, char *argv[])
 
   return 0;
 }
+
+

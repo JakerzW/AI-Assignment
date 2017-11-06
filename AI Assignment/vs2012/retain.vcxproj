@@ -68,14 +68,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\allNodes.h" />
     <ClInclude Include="src\headers\enemy.h" />
     <ClInclude Include="src\headers\node.h" />
     <ClInclude Include="src\headers\player.h" />
     <ClInclude Include="src\headers\surface.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpps\allNodes.cpp" />
     <ClCompile Include="src\cpps\enemy.cpp" />
     <ClCompile Include="src\cpps\main.cpp" />
     <ClCompile Include="src\cpps\node.cpp" />

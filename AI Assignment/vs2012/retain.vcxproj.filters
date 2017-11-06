@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\allNodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\headers\enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -32,9 +29,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpps\allNodes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpps\enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
