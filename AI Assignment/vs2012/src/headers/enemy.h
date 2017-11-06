@@ -1,11 +1,14 @@
 #pragma once
+#include "node.h"
 
-class Enemy
+class Enemy : public Node
 {
 	private:
-		int s_xPos;
-		int s_yPos;
+		int m_posX;
+		int m_posY;
+		int s_startPosX;
+		int s_startPosY;
+
 	public:
-		int getX();
-		int getY();
+		void setStartingPos();
 };

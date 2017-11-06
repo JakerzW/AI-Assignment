@@ -5,28 +5,28 @@
 
 int Node::drawNode()
 {
-	s_surface->blit(s_screen, m_PosX, m_PosY);
+	s_surface->blit(s_screen, m_posX, m_posY);
 	return 0;
 }
 
 int Node::getPosX()
 {
-	return m_PosX;
+	return m_posX;
 }
 
 int Node::getPosY()
 {
-	return m_PosY;
+	return m_posY;
 }
 
 void Node::setPosX(int x)
 {
-	m_PosX = x * c_nodeWidth;
+	m_posX = x * c_nodeWidth;
 }
 
 void Node::setPosY(int y)
 {
-	m_PosY = y * c_nodeHeight;
+	m_posY = y * c_nodeHeight;
 }
 
 void Node::setNodeImage(Surface* surfaceImage)
@@ -125,4 +125,19 @@ void Node::setNeighbours(std::vector<Node> nodes)
 			}
 		}
 	}
+}
+
+void Node::setNodeType(int typeVal)
+{
+	
+
+}
+
+void Node::setNodeBool(bool boolVal)
+{
+}
+
+int Node::getNodeType()
+{
+	return m_nodeType;
 }

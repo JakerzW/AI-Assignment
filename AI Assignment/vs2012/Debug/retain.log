@@ -1,3 +1,16 @@
-﻿  main.cpp
+﻿  player.cpp
+  node.cpp
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(48): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(96): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(101): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(108): warning C4018: '<': signed/unsigned mismatch
+c:\users\jaker\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\node.cpp(117): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  enemy.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  surface.cpp
   retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.exe
   retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.pdb (Full PDB)

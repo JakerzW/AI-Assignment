@@ -13,6 +13,8 @@
 
 #include "../headers/node.h"
 #include "../headers/surface.h"
+#include "../headers/player.h"
+#include "../headers/enemy.h"
 
 #include <iostream>
 #include <memory>
@@ -26,15 +28,18 @@ int main(int argc, char *argv[])
   SDL_Init(SDL_INIT_EVERYTHING);
 
 	  screen = Surface::setVideoMode();
-	  image = Surface::loadBmp("vs2012/images/tile.bmp");
 
 	  std::vector<Node> m_allNodes;
+	  Player player;
+	  Enemy enemy;
 
 	  //Create the nodes
 	  for (size_t y = 0; y < GRIDHEIGHT; y++)
 	  {
 		  for (size_t x = 0; x < GRIDWIDTH; x++)
 		  {
+			  image = Surface::loadBmp("vs2012/images/tile.bmp");
+
 			  Node node;
 			  node.setNodeImage(image.get());
 			  node.s_screen = screen;
@@ -44,10 +49,27 @@ int main(int argc, char *argv[])
 		  }
 	  }
 
-	  //Draw nodes
+	  for (size_t i = 0; i < m_allNodes.size(); i++)
+	  {
+		  //Check the coords against the node being checked - if they match, replace the info with the player/enemy info
+
+	  }
+
+	  //THIS NEEDS TO BE IN LOOP - ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP
+
+	  //Draw basic tile nodes
 	  for (size_t i = 0; i < m_allNodes.size(); i++)
 	  {
 		  m_allNodes.at(i).drawNode();
+		  //Image selection needs to be done here
+	  }
+
+	  //Check to draw player node
+	  for (size_t i = 0; i < m_allNodes.size(); i++)
+	  {
+		  //if (player.getPosX() == m_allNodes.at(i).getPosX())
+			 // //do something;
+			 // ;
 	  }
 
 

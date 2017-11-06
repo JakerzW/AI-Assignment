@@ -1,11 +1,7 @@
 #include "../headers/player.h"
 
-int Player::getX()
+void Player::setStartingPos()
 {
-	return s_xPos;
-}
-
-int Player::getY()
-{
-	return s_yPos;
+	m_xPos = s_startPosX;
+	m_yPos = s_startPosY;
 }

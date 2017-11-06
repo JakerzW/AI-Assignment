@@ -1,12 +1,7 @@
 #include "../headers/enemy.h"
-#include "../headers/node.h"
 
-int Enemy::getX()
+void Enemy::setStartingPos()
 {
-	return s_xPos;
-}
-
-int Enemy::getY()
-{
-	return s_yPos;
+	m_posX = s_startPosX;
+	m_posY = s_startPosY;
 }

@@ -1,11 +1,13 @@
 #pragma once
+#include "node.h"
 
-class Player
+class Player : public Node
 {
 	private:
-		int s_xPos;
-		int s_yPos;
+		int m_xPos;
+		int m_yPos;
+		int s_startPosX;
+		int s_startPosY;
 	public:
-		int getX();
-		int getY();
+		void setStartingPos();
 };
