@@ -129,12 +129,12 @@ void Node::setNeighbours(std::vector<Node> nodes)
 
 void Node::setNodeType(int typeVal)
 {
-	
-
+	m_nodeType = typeVal;
 }
 
-void Node::setNodeBool(bool boolVal)
+void Node::setNodeOpen(bool boolVal)
 {
+	m_nodeOpen = boolVal;
 }
 
 int Node::getNodeType()
