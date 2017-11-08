@@ -8,6 +8,8 @@ class Node
 	private: 
 		int m_posX;
 		int m_posY;
+		int m_x;
+		int m_y;
 		bool m_nodeOpen = true;
 		int m_nodeType = 0;
 
@@ -21,9 +23,11 @@ class Node
 		int drawNode();
 		int getPosX();
 		int getPosY();
+		int getX();
+		int getY();
 		void setPosX(int x);
 		void setPosY(int x);
-		void setNeighbours(std::vector<Node> nodes);
+		void setNeighbours(std::vector<Node> allNodes);
 		void setNodeType(int typeVal);
 		void setNodeOpen(bool boolVal);
 		int getNodeType();

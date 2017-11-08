@@ -54,8 +54,7 @@ int main(int argc, char *argv[])
 				  node.setNodeType(1);
 				  node.setNodeImage(playerImage.get());
 			  }
-			  //else if (enemy.getStartingPosX() == x && enemy.getStartingPosY() == y)
-			  else if (x == 20 && y == 20)
+			  else if (enemy.getStartingPosX() == x && enemy.getStartingPosY() == y)
 			  {
 				  node.setNodeOpen(false);
 				  node.setNodeType(2);
@@ -72,22 +71,10 @@ int main(int argc, char *argv[])
 		  }
 	  }
 
-	  //for (size_t i = 0; i < m_allNodes.size(); i++)
-	  //{
-		 // //Check the coords against the node being checked - if they match, replace the info with the player/enemy info
-		 // if ((m_allNodes.at(i).getPosX() == player.getPosX()) && (m_allNodes.at(i).getPosY() == player.getPosY()))
-		 // {
-			//  m_allNodes.at(i).setNodeOpen(false);
-			//  m_allNodes.at(i).setNodeType(1);
-			//  m_allNodes.at(i).setNodeImage(playerImage.get());
-		 // }
-		 // else if ((m_allNodes.at(i).getPosX() == enemy.getPosX()) && (m_allNodes.at(i).getPosY() == enemy.getPosY()))
-		 // {
-			//  m_allNodes.at(i).setNodeOpen(false);
-			//  m_allNodes.at(i).setNodeType(2);
-			//  m_allNodes.at(i).setNodeImage(enemyImage.get());
-		 // }
-	  //}
+	  /*for (size_t i = 0; i < m_allNodes.size(); i++)
+	  {
+		  m_allNodes.at(i).setNeighbours(m_allNodes);
+	  }*/
 
 	  //THIS NEEDS TO BE IN LOOP - ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP
 
