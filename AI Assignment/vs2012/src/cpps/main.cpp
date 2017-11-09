@@ -71,10 +71,87 @@ int main(int argc, char *argv[])
 		  }
 	  }
 
-	  /*for (size_t i = 0; i < m_allNodes.size(); i++)
+	  //NEIGHBOURING
+	  int i = 0;
+	  for (size_t y = 0; y < GRIDHEIGHT; y++)	//CHECK NOTES
 	  {
-		  m_allNodes.at(i).setNeighbours(m_allNodes);
-	  }*/
+		  for (size_t x = 0; x < GRIDWIDTH; x++)
+		  {
+			  //ABOVE LEFT
+			  if (x > 0 && y > 0)
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - (GRIDWIDTH + 1)));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //ABOVE
+			  if (y > 0)
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - GRIDWIDTH));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //ABOVE RIGHT
+			  if (x < (GRIDWIDTH - 1) && y > 0)
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - (GRIDWIDTH - 1)));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //LEFT
+			  if (x > 0)
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - 1));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //RIGHT
+			  if (x < (GRIDWIDTH - 1))
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + 1));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //BELOW LEFT
+			  if (x > 0 && y < (GRIDHEIGHT - 1))
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + (GRIDWIDTH- 1)));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //BELOW
+			  if (y < (GRIDHEIGHT - 1))
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + GRIDWIDTH));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  //BELOW RIGHT
+			  if (x < (GRIDWIDTH - 1) && y < (GRIDHEIGHT - 1))
+			  {
+				  m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + (GRIDWIDTH + 1)));
+			  }
+			  else
+			  {
+				  m_allNodes.at(i).neighbours.push_back(NULL);
+			  }
+			  i++;
+		  }
+	  }
 
 	  //THIS NEEDS TO BE IN LOOP - ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP
 

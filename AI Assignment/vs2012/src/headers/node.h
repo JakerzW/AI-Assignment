@@ -27,7 +27,6 @@ class Node
 		int getY();
 		void setPosX(int x);
 		void setPosY(int x);
-		void setNeighbours(std::vector<Node> allNodes);
 		void setNodeType(int typeVal);
 		void setNodeOpen(bool boolVal);
 		int getNodeType();
