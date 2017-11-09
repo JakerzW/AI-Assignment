@@ -1,4 +1,14 @@
-#include "src\headers\gameObject.h"
+#include "..\headers\gameObject.h"
+
+int GameObject::getState()
+{
+	return 0;
+}
+
+void GameObject::changeState(int stateVal)
+{
+
+}
 
 int GameObject::getStartingPosX()
 {

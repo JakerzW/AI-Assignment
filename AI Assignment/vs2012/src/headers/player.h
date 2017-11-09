@@ -1,9 +1,10 @@
 #pragma once
-#include "node.h"
+#include "gameObject.h"
 
 class Player : public GameObject
 {
 	private:
+
 	public:
 		void setStartingPos();
 };
