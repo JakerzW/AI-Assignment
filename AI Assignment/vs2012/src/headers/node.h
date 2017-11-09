@@ -12,7 +12,6 @@ class Node
 		int m_y;
 		bool m_nodeOpen = true;
 		int m_nodeType = 0;
-
 		Surface* s_surface;
 	public:				
 		int c_gridHeight = 25;

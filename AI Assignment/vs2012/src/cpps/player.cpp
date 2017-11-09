@@ -2,18 +2,10 @@
 
 void Player::setStartingPos()
 {
-	m_xPos = s_startPosX * c_nodeWidth;
-	m_yPos = s_startPosY * c_nodeWidth;
+	s_startPosX = 4;
+	s_startPosY = 4;
 }
 
-int Player::getStartingPosX()
-{
-	return s_startPosX;
-}
 
-int Player::getStartingPosY()
-{
-	return s_startPosY;
-}
 
 
