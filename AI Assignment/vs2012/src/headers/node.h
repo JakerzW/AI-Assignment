@@ -5,6 +5,10 @@ class Surface;
 
 class Node
 {
+	public: 
+		std::shared_ptr<Surface> s_screen;
+		std::vector<Node*> neighbours;
+		
 	protected: 
 		int m_posX;
 		int m_posY;
@@ -17,8 +21,6 @@ class Node
 		int c_gridWidth = 25;
 		int c_nodeWidth = 25;
 		int c_nodeHeight = 25;
-		std::shared_ptr<Surface> s_screen;
-		std::vector<Node*> neighbours;
 
 	public:
 		int drawNode();

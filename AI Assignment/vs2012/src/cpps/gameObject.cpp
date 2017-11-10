@@ -2,12 +2,12 @@
 
 int GameObject::getState()
 {
-	return 0;
+	return m_state;
 }
 
 void GameObject::changeState(int stateVal)
 {
-
+	m_state = stateVal;
 }
 
 int GameObject::getStartingPosX()
