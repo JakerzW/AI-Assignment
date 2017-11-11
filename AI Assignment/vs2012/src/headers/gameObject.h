@@ -15,5 +15,4 @@ class GameObject : public Node
 		void changeState(int stateVal);
 		int getStartingPosX();
 		int getStartingPosY();
-
 };
