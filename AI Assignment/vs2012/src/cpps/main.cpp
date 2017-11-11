@@ -1,45 +1,63 @@
-#include <SDL/SDL.h>
 #undef main
-
-#define GRIDWIDTH 25
-#define GRIDHEIGHT 25
-
 #ifdef _MSC_VER
 #include <windows.h>
 #else
 #include <unistd.h>
 #endif
-#include <vector>
 
 #include "../headers/node.h"
 #include "../headers/surface.h"
 #include "../headers/player.h"
 #include "../headers/enemy.h"
 
+#include <SDL/SDL.h>
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>	
+
+#define GRIDWIDTH 25
+#define GRIDHEIGHT 25
+
+std::shared_ptr<Surface> tileImage;
+std::shared_ptr<Surface> playerImage;
+std::shared_ptr<Surface> enemyImage;
+std::shared_ptr<Surface> pathImage;
+std::shared_ptr<Surface> screen;
+
+std::vector<Node> m_allNodes;
+
+Player player;
+Enemy enemy;
+
+void update()
+{
+
+}
+
+void draw()
+{
+	//Draw basic tile nodes
+	for (size_t i = 0; i < m_allNodes.size(); i++)
+	{
+		m_allNodes.at(i).drawNode();
+	}
+	screen->flip();
+}
 
 int main(int argc, char *argv[])
 {
-	std::shared_ptr<Surface> tileImage;
-	std::shared_ptr<Surface> playerImage;
-	std::shared_ptr<Surface> enemyImage;
-	std::shared_ptr<Surface> pathImage;
-	std::shared_ptr<Surface> screen;
-  
 	SDL_Init(SDL_INIT_EVERYTHING);
-
+	  
 	screen = Surface::setVideoMode();
 	tileImage = Surface::loadBmp("vs2012/images/tile.bmp");
 	playerImage = Surface::loadBmp("vs2012/images/player.bmp");
 	enemyImage = Surface::loadBmp("vs2012/images/enemy.bmp");
 	pathImage = Surface::loadBmp("vs2012/images/path.bmp");
 
-	std::vector<Node> m_allNodes;
-	Player player;
+	//Initialise classes and variables
+	
 	player.setStartingPos();
-	Enemy enemy;
 	enemy.setStartingPos();
 
 	//Create the nodes
@@ -71,7 +89,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	//NEIGHBOURING
+	//Neighbouring
 	int i = 0;
 	for (size_t y = 0; y < GRIDHEIGHT; y++)	//CHECK NOTES
 	{
@@ -153,30 +171,32 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	//THIS NEEDS TO BE IN LOOP - ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP
-	
+	//ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP	
 
+	bool quitGame = false;
 
-	bool gameActive = true;
-
-	while (gameActive)
+	while (!quitGame)
 	{
-		//Draw basic tile nodes
-		for (size_t i = 0; i < m_allNodes.size(); i++)
+		draw();
+				
+		SDL_Event userInput;
+		while (SDL_PollEvent(&userInput))
 		{
-			m_allNodes.at(i).drawNode();
-		}
-		/*do
-		{
-			gameActive = true;
-		} */
-	}
-	
-	  
-	screen->flip();
+			switch (userInput.type)
+			{
+				case SDL_KEYDOWN:
+					switch (userInput.key.keysym.sym)
+					{
+					case SDLK_ESCAPE: 
+							quitGame = true;
+							break;
+					}
+			}
+		}		
+	}	
 
 	#ifdef _MSC_VER
-		Sleep(10000);
+		//Sleep(10000);
 	#else
 		sleep(3);
 	#endif
