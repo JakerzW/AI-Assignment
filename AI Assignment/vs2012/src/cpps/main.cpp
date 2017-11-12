@@ -25,6 +25,7 @@
 
 std::shared_ptr<Surface> s_tileImage;
 std::shared_ptr<Surface> s_pathImage;
+std::shared_ptr<Surface> s_pathImage2;
 std::shared_ptr<Surface> s_screen;
 
 std::vector<Node> m_allNodes;
@@ -43,6 +44,7 @@ int main(int argc, char *argv[])
 	s_screen = Surface::setVideoMode();
 	s_tileImage = Surface::loadBmp("vs2012/images/tile.bmp");
 	s_pathImage = Surface::loadBmp("vs2012/images/path.bmp");
+	s_pathImage2 = Surface::loadBmp("vs2012/images/path2.bmp");
 
 	//Initialise classes and variables
 	
@@ -151,10 +153,13 @@ int main(int argc, char *argv[])
 	bool quitGame = false;
 
 	while (!quitGame)
-	{			
+	{	
 		SDL_Event userInput;
+		//SDL_WaitEvent(&userInput);
+		bool playerMoved = false;
 		while (SDL_PollEvent(&userInput))
 		{
+			
 			switch (userInput.type)
 			{
 				case SDL_KEYDOWN:
@@ -168,8 +173,7 @@ int main(int argc, char *argv[])
 							if (player.getY() > 0)
 							{
 								player.setPosY(player.getY() - 1);
-								enemy1.move();
-								enemy2.move();
+								playerMoved = true;
 							}
 							break;
 						}
@@ -178,8 +182,7 @@ int main(int argc, char *argv[])
 							if (player.getY() < (GRIDHEIGHT - 1))
 							{
 								player.setPosY(player.getY() + 1);
-								enemy1.move();
-								enemy2.move();
+								playerMoved = true;
 							}
 							break;
 						}
@@ -188,8 +191,7 @@ int main(int argc, char *argv[])
 							if (player.getX() > 0)
 							{
 								player.setPosX(player.getX() - 1);
-								enemy1.move();
-								enemy2.move();
+								playerMoved = true;
 							}
 							break;
 						}
@@ -198,16 +200,21 @@ int main(int argc, char *argv[])
 							if (player.getX() < (GRIDWIDTH - 1))
 							{
 								player.setPosX(player.getX() + 1);
-								enemy1.move();
-								enemy2.move();
+								playerMoved = true;
 							}
 							break;
 						}
 					}
 			}
-			draw(bfs(m_allNodes, &player, &enemy1), bfs(m_allNodes, &player, &enemy2));
+			if (playerMoved)
+			{
+				enemy1.move();
+				enemy2.move();
+				draw(bfs(m_allNodes, &player, &enemy1), bfs(m_allNodes, &player, &enemy2));
+			}
 		}
-		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || (player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
+		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || 
+			(player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
 		{
 			quitGame = true;
 		}
@@ -222,7 +229,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void drawPath(std::vector<Node*> path)
+void drawPath(std::vector<Node*> path, std::shared_ptr<Surface> image)
 {
 	for (size_t i = 0; i < m_allNodes.size(); i++)
 	{
@@ -232,7 +239,7 @@ void drawPath(std::vector<Node*> path)
 			{
 				std::cout << "Drawing path node " << i << std::endl;
 				std::cout << "Path node x: " << m_allNodes.at(i).getPosX() << " and y: " << m_allNodes.at(i).getPosY() << std::endl;
-				m_allNodes.at(i).setNodeImage(s_pathImage.get());
+				m_allNodes.at(i).setNodeImage(image.get());
 				m_allNodes.at(i).drawNode();
 			}
 		}
@@ -273,8 +280,8 @@ void draw(std::vector<Node*> path1, std::vector<Node*> path2)
 		m_allNodes.at(i).setNodeImage(s_tileImage.get());
 		m_allNodes.at(i).drawNode();
 	}
-	drawPath(path1);
-	drawPath(path2);
+	drawPath(path1, s_pathImage);
+	drawPath(path2, s_pathImage2);
 	player.drawNode();
 	enemy1.drawNode();
 	enemy2.drawNode();
