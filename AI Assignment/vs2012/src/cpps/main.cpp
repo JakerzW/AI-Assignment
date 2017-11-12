@@ -159,25 +159,49 @@ int main(int argc, char *argv[])
 				case SDL_KEYDOWN:
 					switch (userInput.key.keysym.sym)
 					{
-					case SDLK_ESCAPE:
-						quitGame = true;
-						break;
-					case SDLK_UP:
-						if (player.getY() > 0)
-							player.setPosY(player.getY() - 1);
-						break;
-					case SDLK_DOWN:
-						if (player.getY() < (GRIDHEIGHT - 1))
-							player.setPosY(player.getY() + 1);
-						break;
-					case SDLK_LEFT:
-						if (player.getX() > 0)
-							player.setPosX(player.getX() - 1);
-						break;
-					case SDLK_RIGHT:
-						if (player.getX() < (GRIDWIDTH - 1))
-							player.setPosX(player.getX() + 1);
-						break;
+						case SDLK_ESCAPE:
+							quitGame = true;
+							break;
+						case SDLK_UP:
+						{
+							if (player.getY() > 0)
+							{
+								player.setPosY(player.getY() - 1);
+								enemy1.move();
+								enemy2.move();
+							}
+							break;
+						}
+						case SDLK_DOWN:
+						{
+							if (player.getY() < (GRIDHEIGHT - 1))
+							{
+								player.setPosY(player.getY() + 1);
+								enemy1.move();
+								enemy2.move();
+							}
+							break;
+						}
+						case SDLK_LEFT:
+						{
+							if (player.getX() > 0)
+							{
+								player.setPosX(player.getX() - 1);
+								enemy1.move();
+								enemy2.move();
+							}
+							break;
+						}
+						case SDLK_RIGHT:
+						{
+							if (player.getX() < (GRIDWIDTH - 1))
+							{
+								player.setPosX(player.getX() + 1);
+								enemy1.move();
+								enemy2.move();
+							}
+							break;
+						}
 					}
 			}
 		}

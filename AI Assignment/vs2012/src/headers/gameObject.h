@@ -6,7 +6,6 @@ class GameObject : public Node
 	protected:
 		int m_xPos;
 		int m_yPos;
-		int m_state = 0;
 		int s_startPosX;
 		int s_startPosY;
 

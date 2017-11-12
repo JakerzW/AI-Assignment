@@ -1,14 +1,6 @@
 #include "..\headers\gameObject.h"
 
-int GameObject::getState()
-{
-	return m_state;
-}
 
-void GameObject::changeState(int stateVal)
-{
-	m_state = stateVal;
-}
 
 int GameObject::getStartingPosX()
 {

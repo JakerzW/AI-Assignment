@@ -25,3 +25,83 @@ void Enemy::init(std::shared_ptr<Surface> screen, int enemyNumber)
 	setPosY(s_startPosY);
 }
 
+void Enemy::move()
+{
+	switch (m_state)
+	{
+		case 0:
+		{
+			//Wandering
+			int dir = rand() % 4;
+			bool dirValid = true;
+			bool moveMade = false;
+			while (dirValid && !moveMade)
+			{
+				switch (dir)
+				{
+					case 0:
+					{
+						if (getY() > 0)
+						{
+							setPosY(getY() - 1);
+							moveMade = true;
+						}
+						else
+							dirValid = false;
+						break;
+					}
+					case 1:
+					{
+						if (getX() < c_gridWidth - 1)
+						{
+							setPosX(getX() + 1);
+							moveMade = true;
+						}
+						else
+							dirValid = false;
+						break;
+					}
+					case 2:
+					{
+						if (getY() < (c_gridHeight - 1))
+						{
+							setPosY(getY() + 1);
+							moveMade = true;
+						}
+						else
+							dirValid = false;
+						break;
+					}
+					case 3:
+					{	
+						if (getX() > 0)
+						{
+							setPosX(getX() - 1);
+							moveMade = true;
+						}
+						else
+							dirValid = false;
+						break;
+					}
+				}
+			}
+			
+		}
+		case 1:
+		{
+			//Chase
+
+		}
+				}
+}
+
+int Enemy::getState()
+{
+	return m_state;
+}
+
+void Enemy::changeState(int stateVal)
+{
+	m_state = stateVal;
+}
+
