@@ -15,6 +15,7 @@ class Node
 		int m_x;
 		int m_y;
 		bool m_nodeOpen = true;
+		bool m_inOpen = false;
 		int m_nodeType = 0;
 		Surface* s_surface;
 		int c_gridHeight = 25;
@@ -33,6 +34,8 @@ class Node
 		void setPosY(int x);
 		void setNodeType(int typeVal);
 		void setNodeOpen(bool boolVal);
+		void setInOpen(bool inOpen);
+		bool getInOpen();
 		int getNodeType();
 		void setParentNode(Node* pNode);
 		Node* getParentNode();

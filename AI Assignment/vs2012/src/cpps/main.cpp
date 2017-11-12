@@ -241,127 +241,150 @@ void draw(std::vector<Node*> path)
 	s_screen->flip();
 }
 
-std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
-{
-	std::vector<Node*> open;
-	std::set<Node*> closed;
-	std::vector<Node*> neighbours;
-	std::vector<Node*> parents;
-
-	Node* startN;
-	Node* endN;
-	Node* currentN;
-	Node* currentNeighbourN;
-
-	
-
-	for (size_t i = 0; i < allNodes.size(); i++)
-	{
-		//Sets the start and end nodes to the player and enemy nodes
-		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
-		{
-			startN = &allNodes.at(i);
-		}
-		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
-		{
-			endN = &allNodes.at(i);
-		}
-	}
-
-	currentN = startN;
-	open.push_back(currentN);
-
-	//Break out clause
-	/*while (open.size() != 0)
-	{
-		std::cout << "I'm stuck in the loop!\n";
-
-		open.erase(open.begin());
-
-		if (currentN == endN)
-		{
-			open.clear();
-			while (currentN != startN)
-			{
-				parents.push_back(currentN->getParentNode());
-				currentN = currentN->getParentNode();
-			}
-		}
-
-		neighbours = currentN->getNeighbours();
-
-		for (size_t i = 0; i < neighbours.size(); i++)
-		{
-			bool inOpen = false;
-
-			currentNeighbourN = neighbours.at(i);
-
-			if (closed.find(currentNeighbourN) != closed.end())
-			{
-				continue;
-			}
-
-			for (size_t n = 0; n < open.size(); n++)
-			{
-				if (open.at(n) == currentNeighbourN)
-				{
-					inOpen = true;
-					break;
-				}
-			}
-
-			if (inOpen == false)
-			{	
-				if (currentNeighbourN != nullptr)
-				{
-					currentNeighbourN->setParentNode(currentN);
-					open.push_back(currentNeighbourN);
-				}
-			}
-			closed.insert(currentN);
-			currentN = currentNeighbourN;
-		}
-	}
-*/
-	return parents;
-}
-
-//std::vector<Node*> breadthfirst(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
+//std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
 //{
 //	std::vector<Node*> open;
-//	std::vector<Node*> closed;
+//	std::set<Node*> closed;
 //	std::vector<Node*> neighbours;
 //	std::vector<Node*> parents;
 //
-//	Node* current;
-//	Node* start;
-//	Node* end;
-//	Node* neighbour;
+//	Node* startN;
+//	Node* endN;
+//	Node* currentN;
+//	Node* currentNeighbourN;
+//
+//	
 //
 //	for (size_t i = 0; i < allNodes.size(); i++)
 //	{
 //		//Sets the start and end nodes to the player and enemy nodes
 //		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
 //		{
-//			start = &allNodes.at(i);
+//			startN = &allNodes.at(i);
 //		}
 //		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
 //		{
-//			end = &allNodes.at(i);
+//			endN = &allNodes.at(i);
 //		}
 //	}
-//	//Set the start node as the current node and put it into the open queue
-//	current = start;
-//	open.push_back(current);
 //
-//	//Do the search until all nodes in the open vector have been searched through
+//	currentN = startN;
+//	open.push_back(currentN);
+//
+//	//Break out clause
 //	while (open.size() != 0)
 //	{
-//		if (current == end)
-//		{
+//		std::cout << "I'm stuck in the loop!\n";
 //
+//		open.erase(open.begin());
+//
+//		if (currentN == endN)
+//		{
+//			open.clear();
+//			while (currentN != startN)
+//			{
+//				parents.push_back(currentN->getParentNode());
+//				currentN = currentN->getParentNode();
+//			}
+//			return parents;
 //		}
-//		neighbours = current->getNeighbours();
+//
+//		neighbours = currentN->getNeighbours();
+//
+//		for (size_t i = 0; i < neighbours.size(); i++)
+//		{
+//			bool inOpen = false;
+//
+//			currentNeighbourN = neighbours.at(i);
+//
+//			if (closed.find(currentNeighbourN) != closed.end())
+//			{
+//				continue;
+//			}
+//
+//			for (size_t n = 0; n < open.size(); n++)
+//			{
+//				if (open.at(n) == currentNeighbourN)
+//				{
+//					inOpen = true;
+//					break;
+//				}
+//			}
+//
+//			if (inOpen == false)
+//			{	
+//				if (currentNeighbourN != nullptr)
+//				{
+//					currentNeighbourN->setParentNode(currentN);
+//					open.push_back(currentNeighbourN);
+//				}
+//			}
+//			closed.insert(currentN);
+//			//currentN = currentNeighbourN;
+//		}
 //	}
 //
+//	return parents;
 //}
+
+std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
+{
+	std::vector<Node*> open;
+	std::vector<Node*> closed;
+	std::vector<Node*> neighbours;
+	std::vector<Node*> parents;
+
+	Node* current;
+	Node* start;
+	Node* end;
+	Node* neighbour;
+
+	for (size_t i = 0; i < allNodes.size(); i++)
+	{
+		//Sets the start and end nodes to the player and enemy nodes
+		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
+		{
+			start = &allNodes.at(i);
+		}
+		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
+		{
+			end = &allNodes.at(i);
+		}
+	}
+	//Set the start node as the current node and put it into the open queue
+	current = start;
+	open.push_back(current);
+
+	//Do the search until all nodes in the open vector have been searched through
+	while (open.size() != 0)
+	{
+		//Remove the first start node
+		open.erase(open.begin());
+
+		//When the end is reached, trace back to the start node, pushing all those nodes into the parent vector
+		if (current == end)
+		{
+			open.clear;
+			while (current != start)
+			{
+				parents.push_back(current->getParentNode());
+				current = current->getParentNode();
+			}
+			return parents;
+			//Return the parents path and end the function
+		}
+
+		neighbours = current->getNeighbours();
+
+		for (size_t i = 0; i < neighbours.size(); i++)
+		{
+			bool inOpen = neighbours.at(i)->getInOpen();
+
+			if (!inOpen)
+			{
+				neighbours.at(i)->setInOpen(true);
+				open.push_back(neighbours.at(i));
+			}
+		}
+	}
+}

@@ -80,3 +80,13 @@ std::vector<Node*> Node::getNeighbours()
 {
 	return neighbours;
 }
+
+void Node::setInOpen(bool inOpen)
+{
+	m_inOpen = inOpen;
+}
+
+bool Node::getInOpen()
+{
+	return m_inOpen;
+}
