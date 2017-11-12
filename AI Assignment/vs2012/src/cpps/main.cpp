@@ -32,9 +32,22 @@ std::vector<Node> m_allNodes;
 Player player;
 Enemy enemy;
 
-void update();
-void draw();
-void bfs();
+void update()
+{
+
+}
+
+void draw()
+{
+	//Draw basic tile nodes
+	for (size_t i = 0; i < m_allNodes.size(); i++)
+	{
+		m_allNodes.at(i).drawNode();
+	}
+	player.drawNode();
+	enemy.drawNode();
+	s_screen->flip();
+}
 
 int main(int argc, char *argv[])
 {
@@ -177,11 +190,9 @@ int main(int argc, char *argv[])
 				case SDL_KEYDOWN:
 					switch (userInput.key.keysym.sym)
 					{
-					//Quit the game when escape is pressed
 					case SDLK_ESCAPE:
 						quitGame = true;
 						break;
-					//Move the player when the user inputs key presses
 					case SDLK_UP:
 						if (player.getY() > 0)
 							player.setPosY(player.getY() - 1);
@@ -212,26 +223,4 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void update()
-{
 
-}
-
-void draw()
-{
-	//Draw basic tile nodes
-	for (size_t i = 0; i < m_allNodes.size(); i++)
-	{
-		m_allNodes.at(i).drawNode();
-	}
-	//Draw the player
-	player.drawNode();
-	//Draw the enemy
-	enemy.drawNode();
-	s_screen->flip();
-}
-
-void bfs()
-{
-
-}
