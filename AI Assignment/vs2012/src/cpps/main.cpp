@@ -33,8 +33,8 @@ Player player;
 Enemy enemy1;
 Enemy enemy2;
 
-void draw();
-void drawPath(std::vector<Node*> path);
+void draw(std::vector<Node*> path);
+//void drawPath(std::vector<Node*> path);
 //int pathDraw(std::vector<Node*> parentNodes);
 std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy);
 //std::vector<Node*> bfs(std::vector<Node> nodes, Enemy* enemy, Player* player);
@@ -208,9 +208,9 @@ int main(int argc, char *argv[])
 					}
 			}
 		}
-		draw();
-		drawPath(bfs(m_allNodes, &player, &enemy2));
-		Sleep(10000000);
+		draw(bfs(m_allNodes, &player, &enemy2));
+		//drawPath(bfs(m_allNodes, &player, &enemy2));
+		//Sleep(10000000);
 		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || (player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
 		{
 			quitGame = true;
@@ -226,22 +226,10 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void drawPath(std::vector<Node*> path)
-{
-	for (size_t i = 0; i < m_allNodes.size(); i++)
-	{
-		for (size_t j = 0; j < path.size(); j++)
-		{
-			if ((m_allNodes.at(i).getPosX() == path.at(j)->getPosX()) && (m_allNodes.at(i).getPosY() == path.at(j)->getPosY()))
-			{
-				std::cout << "Drawing path node " << i << std::endl;
-				std::cout << "Path node x: " << m_allNodes.at(i).getPosX() << " and y: " << m_allNodes.at(i).getPosY() << std::endl;
-				m_allNodes.at(i).setNodeImage(s_pathImage.get());
-				m_allNodes.at(i).drawNode();
-			}
-		}
-	}
-}
+//void drawPath(std::vector<Node*> path)
+//{
+//	
+//}
 
 //int pathDraw(std::vector<Node*> parentNodes)
 //{
@@ -269,7 +257,7 @@ void drawPath(std::vector<Node*> path)
 //	return 0;
 //}
 
-void draw()
+void draw(std::vector<Node*> path)
 {
 	//Draw basic tile nodes
 	for (size_t i = 0; i < m_allNodes.size(); i++)
@@ -280,6 +268,19 @@ void draw()
 	player.drawNode();
 	enemy1.drawNode();
 	enemy2.drawNode();
+	for (size_t i = 0; i < m_allNodes.size(); i++)
+	{
+		for (size_t j = 0; j < path.size(); j++)
+		{
+			if ((m_allNodes.at(i).getPosX() == path.at(j)->getPosX()) && (m_allNodes.at(i).getPosY() == path.at(j)->getPosY()))
+			{
+				std::cout << "Drawing path node " << i << std::endl;
+				std::cout << "Path node x: " << m_allNodes.at(i).getPosX() << " and y: " << m_allNodes.at(i).getPosY() << std::endl;
+				m_allNodes.at(i).setNodeImage(s_pathImage.get());
+				m_allNodes.at(i).drawNode();
+			}
+		}
+	}
 	/*for (size_t i = 0; i < path.size(); i++)
 	{
 
