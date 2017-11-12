@@ -65,3 +65,18 @@ int Node::getNodeType()
 {
 	return m_nodeType;
 }
+
+void Node::setParentNode(Node* pNode)
+{
+	m_parentNode = pNode;
+}
+
+Node* Node::getParentNode()
+{
+	return m_parentNode;
+}
+
+std::vector<Node*> Node::getNeighbours()
+{
+	return neighbours;
+}

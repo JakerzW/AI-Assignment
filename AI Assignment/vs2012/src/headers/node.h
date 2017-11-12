@@ -21,6 +21,7 @@ class Node
 		int c_gridWidth = 25;
 		int c_nodeWidth = 25;
 		int c_nodeHeight = 25;
+		Node* m_parentNode;
 
 	public:
 		int drawNode();
@@ -33,6 +34,9 @@ class Node
 		void setNodeType(int typeVal);
 		void setNodeOpen(bool boolVal);
 		int getNodeType();
+		void setParentNode(Node* pNode);
+		Node* getParentNode();
+		std::vector<Node*> getNeighbours();
 		void Node::setNodeImage(Surface* surfaceImage);
 		Surface* Node::getImage();
 };

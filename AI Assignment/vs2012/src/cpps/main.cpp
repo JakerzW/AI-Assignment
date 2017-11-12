@@ -11,11 +11,11 @@
 #include "../headers/player.h"
 #include "../headers/enemy.h"
 
-
 #include <iostream>
 #include <memory>
 #include <string>
 #include <vector>	
+#include <set>
 
 #define GRIDWIDTH 25
 #define GRIDHEIGHT 25
@@ -32,22 +32,7 @@ std::vector<Node> m_allNodes;
 Player player;
 Enemy enemy;
 
-void update()
-{
-
-}
-
-void draw()
-{
-	//Draw basic tile nodes
-	for (size_t i = 0; i < m_allNodes.size(); i++)
-	{
-		m_allNodes.at(i).drawNode();
-	}
-	player.drawNode();
-	enemy.drawNode();
-	s_screen->flip();
-}
+void draw();
 
 int main(int argc, char *argv[])
 {
@@ -223,4 +208,93 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+void draw()
+{
+	//Draw basic tile nodes
+	for (size_t i = 0; i < m_allNodes.size(); i++)
+	{
+		m_allNodes.at(i).drawNode();
+	}
+	player.drawNode();
+	enemy.drawNode();
+	s_screen->flip();
+}
 
+std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
+{
+	std::vector<Node*> open;
+	std::set<Node*> closed;
+	std::vector<Node*> neighbours;
+	std::vector<Node*> parents;
+
+	Node* startN;
+	Node* endN;
+	Node* currentN;
+	Node* currentNeighbourN;
+
+	bool inOpen = false;
+
+	for (size_t i = 0; i < allNodes.size(); i++)
+	{
+		//Sets the start and end nodes to the player and enemy nodes
+		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
+		{
+			startN = &allNodes.at(i);
+			currentN = &allNodes.at(i);
+		}
+		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
+		{
+			endN = &allNodes.at(i);
+		}
+	}
+
+	open.push_back(currentN);
+
+	//Break out clause
+	while (open.size() != 0)
+	{
+		std::cout << "Chris sucks willies.\n";
+
+		open.erase(open.begin());
+
+		if (currentN == endN)
+		{
+			while (currentN != startN)
+			{
+				parents.push_back(currentN->getParentNode());
+				currentN = currentN->getParentNode();
+			}
+		}
+	}
+
+	neighbours = currentN->getNeighbours();
+
+	for (size_t i = 0; i < neighbours.size(); i++)
+	{
+		currentNeighbourN = neighbours.at(i);
+
+		if (closed.find(currentNeighbourN) != closed.end())
+		{
+			continue;
+		}
+
+		for (size_t i = 0; i < open.size(); i++)
+		{
+			if (open.at(i) == currentNeighbourN)
+			{
+				inOpen = true;
+				break;
+			}
+		}
+
+		if (inOpen == false)
+		{
+			currentNeighbourN->setParentNode(currentN);
+			open.push_back(currentNeighbourN);
+		}
+
+		closed.insert(currentN);
+	}
+
+	return parents;
+}
