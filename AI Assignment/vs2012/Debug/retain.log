@@ -1,3 +1,4 @@
 ﻿  main.cpp
-  retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.exe
-  retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.pdb (Full PDB)
+d:\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\main.cpp(230): warning C4101: 'currentNeighbourN': unreferenced local variable
+  retain.vcxproj -> D:\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.exe
+  retain.vcxproj -> D:\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Debug\retain.pdb (Full PDB)

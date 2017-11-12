@@ -27,12 +27,13 @@ std::shared_ptr<Surface> s_pathImage;
 std::shared_ptr<Surface> s_screen;
 
 std::vector<Node> m_allNodes;
-//std::vector<Node> m_queue;
 
 Player player;
-Enemy enemy;
+Enemy enemy1;
+Enemy enemy2;
 
-void draw();
+void draw(std::vector<Node*> path);
+std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy);
 
 int main(int argc, char *argv[])
 {
@@ -45,7 +46,8 @@ int main(int argc, char *argv[])
 	//Initialise classes and variables
 	
 	player.init(s_screen);
-	enemy.init(s_screen);
+	enemy1.init(s_screen, 1);
+	enemy2.init(s_screen, 2);
 
 	//Create the nodes
 	for (size_t y = 0; y < GRIDHEIGHT; y++)
@@ -53,22 +55,6 @@ int main(int argc, char *argv[])
 		for (size_t x = 0; x < GRIDWIDTH; x++)
 		{
 			Node node;
-			/*if (player.getStartingPosX() == x && player.getStartingPosY() == y)
-			{
-				node.setNodeOpen(false);
-				node.setNodeType(1);
-				node.setNodeImage(s_playerImage.get());
-			}
-			else if (enemy.getStartingPosX() == x && enemy.getStartingPosY() == y)
-			{
-				node.setNodeOpen(false);
-				node.setNodeType(2);
-				node.setNodeImage(s_enemyImage.get());
-			}
-			else 
-			{
-				node.setNodeImage(s_tileImage.get());
-			}*/
 			node.setNodeImage(s_tileImage.get());
 			node.s_screen = s_screen;
 			node.setPosX(x);
@@ -164,9 +150,7 @@ int main(int argc, char *argv[])
 	bool quitGame = false;
 
 	while (!quitGame)
-	{
-		draw();
-				
+	{			
 		SDL_Event userInput;
 		while (SDL_PollEvent(&userInput))
 		{
@@ -196,7 +180,14 @@ int main(int argc, char *argv[])
 						break;
 					}
 			}
-		}		
+		}
+		//std::vector<Node*> path = bfs(m_allNodes, &player, &enemy);
+		draw(bfs(m_allNodes, &player, &enemy2));
+		//Sleep(10000);
+		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || (player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
+		{
+			quitGame = true;
+		}
 	}	
 
 	#ifdef _MSC_VER
@@ -208,7 +199,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void draw()
+void draw(std::vector<Node*> path)
 {
 	//Draw basic tile nodes
 	for (size_t i = 0; i < m_allNodes.size(); i++)
@@ -216,7 +207,13 @@ void draw()
 		m_allNodes.at(i).drawNode();
 	}
 	player.drawNode();
-	enemy.drawNode();
+	enemy1.drawNode();
+	enemy2.drawNode();
+	for (size_t i = 0; i < path.size(); i++)
+	{
+		path.at(i)->setNodeImage(s_pathImage.get());
+		path.at(i)->drawNode();
+	}
 	s_screen->flip();
 }
 
@@ -232,7 +229,7 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 	Node* currentN;
 	Node* currentNeighbourN;
 
-	bool inOpen = false;
+	
 
 	for (size_t i = 0; i < allNodes.size(); i++)
 	{
@@ -240,7 +237,6 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
 		{
 			startN = &allNodes.at(i);
-			currentN = &allNodes.at(i);
 		}
 		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
 		{
@@ -248,53 +244,100 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 		}
 	}
 
+	currentN = startN;
 	open.push_back(currentN);
 
 	//Break out clause
-	while (open.size() != 0)
+	/*while (open.size() != 0)
 	{
-		std::cout << "Chris sucks willies.\n";
+		std::cout << "I'm stuck in the loop!\n";
 
 		open.erase(open.begin());
 
 		if (currentN == endN)
 		{
+			open.clear();
 			while (currentN != startN)
 			{
 				parents.push_back(currentN->getParentNode());
 				currentN = currentN->getParentNode();
 			}
 		}
-	}
 
-	neighbours = currentN->getNeighbours();
+		neighbours = currentN->getNeighbours();
 
-	for (size_t i = 0; i < neighbours.size(); i++)
-	{
-		currentNeighbourN = neighbours.at(i);
-
-		if (closed.find(currentNeighbourN) != closed.end())
+		for (size_t i = 0; i < neighbours.size(); i++)
 		{
-			continue;
-		}
+			bool inOpen = false;
 
-		for (size_t i = 0; i < open.size(); i++)
-		{
-			if (open.at(i) == currentNeighbourN)
+			currentNeighbourN = neighbours.at(i);
+
+			if (closed.find(currentNeighbourN) != closed.end())
 			{
-				inOpen = true;
-				break;
+				continue;
 			}
-		}
 
-		if (inOpen == false)
-		{
-			currentNeighbourN->setParentNode(currentN);
-			open.push_back(currentNeighbourN);
-		}
+			for (size_t n = 0; n < open.size(); n++)
+			{
+				if (open.at(n) == currentNeighbourN)
+				{
+					inOpen = true;
+					break;
+				}
+			}
 
-		closed.insert(currentN);
+			if (inOpen == false)
+			{	
+				if (currentNeighbourN != nullptr)
+				{
+					currentNeighbourN->setParentNode(currentN);
+					open.push_back(currentNeighbourN);
+				}
+			}
+			closed.insert(currentN);
+			currentN = currentNeighbourN;
+		}
 	}
-
+*/
 	return parents;
 }
+
+//std::vector<Node*> breadthfirst(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
+//{
+//	std::vector<Node*> open;
+//	std::vector<Node*> closed;
+//	std::vector<Node*> neighbours;
+//	std::vector<Node*> parents;
+//
+//	Node* current;
+//	Node* start;
+//	Node* end;
+//	Node* neighbour;
+//
+//	for (size_t i = 0; i < allNodes.size(); i++)
+//	{
+//		//Sets the start and end nodes to the player and enemy nodes
+//		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
+//		{
+//			start = &allNodes.at(i);
+//		}
+//		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
+//		{
+//			end = &allNodes.at(i);
+//		}
+//	}
+//	//Set the start node as the current node and put it into the open queue
+//	current = start;
+//	open.push_back(current);
+//
+//	//Do the search until all nodes in the open vector have been searched through
+//	while (open.size() != 0)
+//	{
+//		if (current == end)
+//		{
+//
+//		}
+//		neighbours = current->getNeighbours();
+//	}
+//
+//}
