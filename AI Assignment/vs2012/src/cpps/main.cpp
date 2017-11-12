@@ -10,6 +10,7 @@
 #include "../headers/surface.h"
 #include "../headers/player.h"
 #include "../headers/enemy.h"
+#include "../headers/path.h"
 
 #include <iostream>
 #include <memory>
@@ -32,9 +33,11 @@ Player player;
 Enemy enemy1;
 Enemy enemy2;
 
-void draw(std::vector<Node*> path);
+void draw();
+void drawPath(std::vector<Node*> path);
+//int pathDraw(std::vector<Node*> parentNodes);
 std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy);
-
+//std::vector<Node*> bfs(std::vector<Node> nodes, Enemy* enemy, Player* player);
 int main(int argc, char *argv[])
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -55,7 +58,7 @@ int main(int argc, char *argv[])
 		for (size_t x = 0; x < GRIDWIDTH; x++)
 		{
 			Node node;
-			node.setNodeImage(s_tileImage.get());
+			//node.setNodeImage(s_tileImage.get());
 			node.s_screen = s_screen;
 			node.setPosX(x);
 			node.setPosY(y);
@@ -96,37 +99,10 @@ int main(int argc, char *argv[])
 			{
 				m_allNodes.at(i).neighbours.push_back(NULL);
 			}
-			//LEFT
-			if (x > 0)
-			{
-				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - 1));
-			}
-			else
-			{
-				m_allNodes.at(i).neighbours.push_back(NULL);
-			}
 			//RIGHT
 			if (x < (GRIDWIDTH - 1))
 			{
 				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + 1));
-			}
-			else
-			{
-				m_allNodes.at(i).neighbours.push_back(NULL);
-			}
-			//BELOW LEFT
-			if (x > 0 && y < (GRIDHEIGHT - 1))
-			{
-				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + (GRIDWIDTH- 1)));
-			}
-			else
-			{
-				m_allNodes.at(i).neighbours.push_back(NULL);
-			}
-			//BELOW
-			if (y < (GRIDHEIGHT - 1))
-			{
-				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + GRIDWIDTH));
 			}
 			else
 			{
@@ -141,6 +117,33 @@ int main(int argc, char *argv[])
 			{
 				m_allNodes.at(i).neighbours.push_back(NULL);
 			}
+			//BELOW
+			if (y < (GRIDHEIGHT - 1))
+			{
+				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + GRIDWIDTH));
+			}
+			else
+			{
+				m_allNodes.at(i).neighbours.push_back(NULL);
+			}			
+			//BELOW LEFT
+			if (x > 0 && y < (GRIDHEIGHT - 1))
+			{
+				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i + (GRIDWIDTH- 1)));
+			}
+			else
+			{
+				m_allNodes.at(i).neighbours.push_back(NULL);
+			}
+			//LEFT
+			if (x > 0)
+			{
+				m_allNodes.at(i).neighbours.push_back(&m_allNodes.at(i - 1));
+			}
+			else
+			{
+				m_allNodes.at(i).neighbours.push_back(NULL);
+			}			
 			i++;
 		}
 	}
@@ -205,9 +208,9 @@ int main(int argc, char *argv[])
 					}
 			}
 		}
-		//std::vector<Node*> path = bfs(m_allNodes, &player, &enemy);
-		draw(bfs(m_allNodes, &player, &enemy2));
-		//Sleep(10000);
+		draw();
+		drawPath(bfs(m_allNodes, &player, &enemy2));
+		Sleep(10000000);
 		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || (player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
 		{
 			quitGame = true;
@@ -223,21 +226,66 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void draw(std::vector<Node*> path)
+void drawPath(std::vector<Node*> path)
+{
+	for (size_t i = 0; i < m_allNodes.size(); i++)
+	{
+		for (size_t j = 0; j < path.size(); j++)
+		{
+			if ((m_allNodes.at(i).getPosX() == path.at(j)->getPosX()) && (m_allNodes.at(i).getPosY() == path.at(j)->getPosY()))
+			{
+				std::cout << "Drawing path node " << i << std::endl;
+				std::cout << "Path node x: " << m_allNodes.at(i).getPosX() << " and y: " << m_allNodes.at(i).getPosY() << std::endl;
+				m_allNodes.at(i).setNodeImage(s_pathImage.get());
+				m_allNodes.at(i).drawNode();
+			}
+		}
+	}
+}
+
+//int pathDraw(std::vector<Node*> parentNodes)
+//{
+//	std::shared_ptr<Surface> path;
+//	path = Surface::loadBmp("pathImage.bmp");
+//
+//	int x = 0;
+//	int y = 0;
+//	Node* paths;
+//	Node pathdraw(x, y, path.get());
+//
+//	for (size_t i = 0; i < parentNodes.size(); i++)
+//	{
+//		//paths = parentNodes.at(i);
+//
+//		//x = paths->GetPosX();
+//		//y = paths->GetPosY();
+//
+//		pathdraw.setPosX(parentNodes[i]->getPosX());
+//		pathdraw.setPosY(parentNodes[i]->getPosY());
+//
+//		pathdraw.draw(screen);
+//	}
+//
+//	return 0;
+//}
+
+void draw()
 {
 	//Draw basic tile nodes
 	for (size_t i = 0; i < m_allNodes.size(); i++)
 	{
+		m_allNodes.at(i).setNodeImage(s_tileImage.get());
 		m_allNodes.at(i).drawNode();
 	}
 	player.drawNode();
 	enemy1.drawNode();
 	enemy2.drawNode();
-	for (size_t i = 0; i < path.size(); i++)
+	/*for (size_t i = 0; i < path.size(); i++)
 	{
+
 		path.at(i)->setNodeImage(s_pathImage.get());
 		path.at(i)->drawNode();
-	}
+	}*/
 	s_screen->flip();
 }
 
@@ -330,7 +378,7 @@ void draw(std::vector<Node*> path)
 std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
 {
 	std::vector<Node*> open;
-	std::vector<Node*> closed;
+	std::set<Node*> closed;
 	std::vector<Node*> neighbours;
 	std::vector<Node*> parents;
 
@@ -338,6 +386,8 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 	Node* start;
 	Node* end;
 	Node* neighbour;
+
+	bool inOpen = false;
 
 	for (size_t i = 0; i < allNodes.size(); i++)
 	{
@@ -355,36 +405,167 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 	current = start;
 	open.push_back(current);
 
-	//Do the search until all nodes in the open vector have been searched through
 	while (open.size() != 0)
 	{
-		//Remove the first start node
+		current = open.front();
+
 		open.erase(open.begin());
 
-		//When the end is reached, trace back to the start node, pushing all those nodes into the parent vector
 		if (current == end)
 		{
-			open.clear;
 			while (current != start)
 			{
+				std::cout << "I am trying to trace back parents\n";
 				parents.push_back(current->getParentNode());
 				current = current->getParentNode();
 			}
-			return parents;
-			//Return the parents path and end the function
+			std::cout << "I am returning parents after their creation";
+			//return parents;
+			//Sleep(1000);
+			//return parents;
 		}
 
 		neighbours = current->getNeighbours();
 
 		for (size_t i = 0; i < neighbours.size(); i++)
 		{
-			bool inOpen = neighbours.at(i)->getInOpen();
+			neighbour = neighbours.at(i);
 
-			if (!inOpen)
+			if (closed.find(neighbour) != closed.end())
 			{
-				neighbours.at(i)->setInOpen(true);
-				open.push_back(neighbours.at(i));
+				continue;
 			}
+			for (size_t t = 0; t < open.size(); t++)
+			{
+				if (open.at(t) == neighbour)
+				{
+					inOpen = true;
+					break;
+				}
+			}
+			if (inOpen == false)
+			{
+				if (neighbour == nullptr)
+				{
+					continue;
+				}
+				neighbour->setParentNode(current);
+				open.push_back(neighbour);
+
+				closed.insert(current);
+			}
+			inOpen = false;
 		}
 	}
+	std::cout << "I am outputting parents\n";
+	return parents;
 }
+
+//std::vector<Node*> bfs(std::vector<Node> nodes, Enemy* enemy, Player* player)
+//{
+//	std::vector<Node*> open;
+//	std::set<Node*> closed;
+//	std::vector<Node*> neighbours;
+//	std::vector<Node*> parentNodes;
+//
+//	//int posX = enemy->GetPosX();
+//	//int posY = enemy->GetPosY();
+//
+//	//std::cout << posX << "\n";
+//	//std::cout << posY << "\n";
+//
+//	Node* sNode;
+//	Node* cNode;
+//	Node* eNode;
+//	Node* cnNode;
+//	bool inOpen = false;
+//
+//	for (size_t i = 0; i < nodes.size(); i++)
+//	{
+//		if (enemy->getPosX() == nodes.at(i).getPosX()
+//			&& enemy->getPosY() == nodes.at(i).getPosY())
+//		{
+//			sNode = &nodes.at(i);
+//			cNode = &nodes.at(i);
+//			break;
+//		}
+//	}
+//
+//	for (size_t i = 0; i < nodes.size(); i++)
+//	{
+//		if (player->getPosX() == nodes.at(i).getPosX()
+//			&& player->getPosY() == nodes.at(i).getPosY())
+//		{
+//			eNode = &nodes.at(i);
+//			break;
+//		}
+//	}
+//
+//	open.push_back(cNode);
+//
+//	while (open.size() != 0)
+//	{
+//		cNode = open.front();
+//
+//		open.erase(open.begin());
+//
+//
+//
+//		if (cNode == eNode)
+//		{
+//			while (cNode != sNode)
+//			{
+//				parentNodes.push_back(cNode->getParentNode());
+//				cNode = cNode->getParentNode();
+//			}
+//			//DrawPath(parentNodes);
+//		}
+//		7; //This is a seven (deal with it)
+//
+//		neighbours = cNode->getNeighbours();
+//
+//		for (size_t i = 0; i < neighbours.size(); i++)
+//		{
+//			cnNode = neighbours.at(i);
+//
+//			if (closed.find(cnNode) != closed.end())
+//			{
+//				continue;
+//			}
+//			for (size_t t = 0; t < open.size(); t++)
+//			{
+//
+//				if (open.at(t) == cnNode)
+//				{
+//					inOpen = true;
+//					break;
+//				}
+//			}
+//			if (inOpen == false)
+//			{
+//
+//				if (cnNode == nullptr)
+//				{
+//					continue;
+//				}
+//
+//				cnNode->setParentNode(cNode);
+//				open.push_back(cnNode);
+//
+//				closed.insert(cNode);
+//
+//
+//			}
+//
+//			inOpen = false;
+//		}
+//
+//
+//		std::cout << cNode << "   -   ";
+//		std::cout << cNode->getPosX() << " - ";
+//		std::cout << cNode->getPosY() << "\n";
+//
+//	}
+//	return parentNodes;
+//}
+
