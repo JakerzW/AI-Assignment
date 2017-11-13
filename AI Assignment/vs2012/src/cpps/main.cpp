@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
 	}	
 
 	#ifdef _MSC_VER
-		Sleep(1000);
+		//Sleep(1000);
 	#else
 		sleep(3);
 	#endif
@@ -265,32 +265,6 @@ void drawPath(std::vector<Node*> path, std::shared_ptr<Surface> image)
 	}
 }
 
-//int pathDraw(std::vector<Node*> parentNodes)
-//{
-//	std::shared_ptr<Surface> path;
-//	path = Surface::loadBmp("pathImage.bmp");
-//
-//	int x = 0;
-//	int y = 0;
-//	Node* paths;
-//	Node pathdraw(x, y, path.get());
-//
-//	for (size_t i = 0; i < parentNodes.size(); i++)
-//	{
-//		//paths = parentNodes.at(i);
-//
-//		//x = paths->GetPosX();
-//		//y = paths->GetPosY();
-//
-//		pathdraw.setPosX(parentNodes[i]->getPosX());
-//		pathdraw.setPosY(parentNodes[i]->getPosY());
-//
-//		pathdraw.draw(screen);
-//	}
-//
-//	return 0;
-//}
-
 void draw(std::vector<Node*> path1, std::vector<Node*> path2)
 {
 	//Draw basic tile nodes
@@ -314,92 +288,6 @@ void draw(std::vector<Node*> path1, std::vector<Node*> path2)
 	s_screen->flip();
 }
 
-//std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
-//{
-//	std::vector<Node*> open;
-//	std::set<Node*> closed;
-//	std::vector<Node*> neighbours;
-//	std::vector<Node*> parents;
-//
-//	Node* startN;
-//	Node* endN;
-//	Node* currentN;
-//	Node* currentNeighbourN;
-//
-//	
-//
-//	for (size_t i = 0; i < allNodes.size(); i++)
-//	{
-//		//Sets the start and end nodes to the player and enemy nodes
-//		if ((enemy->getPosX() == allNodes.at(i).getPosX()) && (enemy->getPosY() == allNodes.at(i).getPosY()))
-//		{
-//			startN = &allNodes.at(i);
-//		}
-//		if ((player->getPosX() == allNodes.at(i).getPosX()) && (player->getPosY() == allNodes.at(i).getPosY()))
-//		{
-//			endN = &allNodes.at(i);
-//		}
-//	}
-//
-//	currentN = startN;
-//	open.push_back(currentN);
-//
-//	//Break out clause
-//	while (open.size() != 0)
-//	{
-//		std::cout << "I'm stuck in the loop!\n";
-//
-//		open.erase(open.begin());
-//
-//		if (currentN == endN)
-//		{
-//			open.clear();
-//			while (currentN != startN)
-//			{
-//				parents.push_back(currentN->getParentNode());
-//				currentN = currentN->getParentNode();
-//			}
-//			return parents;
-//		}
-//
-//		neighbours = currentN->getNeighbours();
-//
-//		for (size_t i = 0; i < neighbours.size(); i++)
-//		{
-//			bool inOpen = false;
-//
-//			currentNeighbourN = neighbours.at(i);
-//
-//			if (closed.find(currentNeighbourN) != closed.end())
-//			{
-//				continue;
-//			}
-//
-//			for (size_t n = 0; n < open.size(); n++)
-//			{
-//				if (open.at(n) == currentNeighbourN)
-//				{
-//					inOpen = true;
-//					break;
-//				}
-//			}
-//
-//			if (inOpen == false)
-//			{	
-//				if (currentNeighbourN != nullptr)
-//				{
-//					currentNeighbourN->setParentNode(currentN);
-//					open.push_back(currentNeighbourN);
-//				}
-//			}
-//			closed.insert(currentN);
-//			//currentN = currentNeighbourN;
-//		}
-//	}
-//
-//	return parents;
-//}
-
 std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy)
 {
 	std::vector<Node*> open;
@@ -408,8 +296,8 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 	std::vector<Node*> parents;
 
 	Node* current;
-	Node* start;
-	Node* end;
+	Node* start = nullptr;
+	Node* end = nullptr;
 	Node* neighbour;
 
 	bool inOpen = false;
@@ -481,6 +369,7 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 		}
 	}
 	std::cout << "I am outputting parents\n";
+	return parents;
 }
 
 //std::vector<Node*> bfs(std::vector<Node> nodes, Enemy* enemy, Player* player)

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>d:\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\</FILEPATH>
+      <FILENAME>main.cpp</FILENAME>
+      <LINE>403</LINE>
+      <COLUMN>22</COLUMN>
+    </SFA>
+    <DEFECTCODE>6244</DEFECTCODE>
+    <DESCRIPTION>Local declaration of 'player' hides previous declaration at line '33' of 'd:\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\main.cpp'.</DESCRIPTION>
+    <FUNCTION>bfs</FUNCTION>
+    <DECORATED>?bfs@@YA?AV?$vector@PAVNode@@V?$allocator@PAVNode@@@std@@@std@@AAV?$vector@VNode@@V?$allocator@VNode@@@std@@@2@PAVPlayer@@PAVEnemy@@@Z</DECORATED>
+    <FUNCLINE>403</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\documents\github\ai-assignment\ai assignment\vs2012\src\cpps\</FILEPATH>
+        <FILENAME>main.cpp</FILENAME>
+        <LINE>33</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT></DEFECTS>

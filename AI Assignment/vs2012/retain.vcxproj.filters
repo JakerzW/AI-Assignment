@@ -57,4 +57,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\enemy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\path.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\path2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\tile.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

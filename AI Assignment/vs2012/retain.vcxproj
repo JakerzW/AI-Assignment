@@ -84,6 +84,13 @@
     <ClCompile Include="src\cpps\player.cpp" />
     <ClCompile Include="src\cpps\surface.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\enemy.bmp" />
+    <Image Include="images\path.bmp" />
+    <Image Include="images\path2.bmp" />
+    <Image Include="images\player.bmp" />
+    <Image Include="images\tile.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
