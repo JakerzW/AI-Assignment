@@ -161,11 +161,7 @@ int main(int argc, char *argv[])
 		bool playerMoved = false;
 		bool enemy1StateChanged = false;
 		bool enemy2StateChanged = false;
-		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) ||
-			(player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
-		{
-			quitGame = true;
-		}
+		
 		while (SDL_PollEvent(&userInput))
 		{
 			
@@ -227,6 +223,15 @@ int main(int argc, char *argv[])
 				{
 					enemy2.changeState(1);
 					enemy2StateChanged = true;
+				}
+				if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) ||
+					(player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
+				{
+					quitGame = true;
+					enemy1.changeState(0);
+					enemy1StateChanged = false;
+					enemy2.changeState(0);
+					enemy2StateChanged = false;
 				}
 				std::vector<Node*> enemy1Path = bfs(m_allNodes, &player, &enemy1);
 				std::vector<Node*> enemy2Path = bfs(m_allNodes, &player, &enemy2);
