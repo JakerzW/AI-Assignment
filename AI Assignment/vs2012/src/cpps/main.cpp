@@ -159,6 +159,13 @@ int main(int argc, char *argv[])
 		SDL_Event userInput;
 		//SDL_WaitEvent(&userInput);
 		bool playerMoved = false;
+		bool enemy1StateChanged = false;
+		bool enemy2StateChanged = false;
+		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) ||
+			(player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
+		{
+			quitGame = true;
+		}
 		while (SDL_PollEvent(&userInput))
 		{
 			
@@ -209,14 +216,17 @@ int main(int argc, char *argv[])
 					}
 			}
 			if (playerMoved)
-			{
-				if ((std::abs(player.getPosX() - enemy1.getPosX()) < 300) && (std::abs(player.getPosY() - enemy1.getPosY()) < 300))
+			{	
+				
+				if ((std::abs(player.getPosX() - enemy1.getPosX()) < 300) && (std::abs(player.getPosY() - enemy1.getPosY()) < 300) && !enemy1StateChanged)
 				{
 					enemy1.changeState(1);
+					enemy1StateChanged = true;
 				}
-				if ((std::abs(player.getPosX() - enemy2.getPosX()) < 300) && (std::abs(player.getPosY() - enemy2.getPosY()) < 300))
+				if ((std::abs(player.getPosX() - enemy2.getPosX()) < 300) && (std::abs(player.getPosY() - enemy2.getPosY()) < 300) && !enemy2StateChanged)
 				{
 					enemy2.changeState(1);
+					enemy2StateChanged = true;
 				}
 				std::vector<Node*> enemy1Path = bfs(m_allNodes, &player, &enemy1);
 				std::vector<Node*> enemy2Path = bfs(m_allNodes, &player, &enemy2);
@@ -226,11 +236,7 @@ int main(int argc, char *argv[])
 				playerMoved = false;
 			}
 		}
-		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || 
-			(player.getPosX() == enemy2.getPosX()) && (player.getPosY() == enemy2.getPosY()))
-		{
-			quitGame = true;
-		}
+		
 	}	
 
 	#ifdef _MSC_VER
@@ -439,9 +445,7 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 				current = current->getParentNode();
 			}
 			std::cout << "I am returning parents after their creation";
-			//return parents;
-			//Sleep(1000);
-			//return parents;
+			return parents;
 		}
 
 		neighbours = current->getNeighbours();
@@ -477,7 +481,6 @@ std::vector<Node*> bfs(std::vector<Node> &allNodes, Player* player, Enemy* enemy
 		}
 	}
 	std::cout << "I am outputting parents\n";
-	return parents;
 }
 
 //std::vector<Node*> bfs(std::vector<Node> nodes, Enemy* enemy, Player* player)
