@@ -1,0 +1,12 @@
+﻿  enemy.cpp
+  gameObject.cpp
+  main.cpp
+  node.cpp
+  path.cpp
+  player.cpp
+  surface.cpp
+  Generating code
+  All 529 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Release\retain.exe
+  retain.vcxproj -> C:\Users\Jaker\Documents\GitHub\AI-Assignment\AI Assignment\vs2012\Release\retain.pdb (Full PDB)

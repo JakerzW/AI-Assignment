@@ -151,9 +151,11 @@ int main(int argc, char *argv[])
 	//ALL INITIALISATION NEEDS TO HAPPEN BEFORE THE LOOP	
 
 	bool quitGame = false;
+	draw(bfs(m_allNodes, &player, &enemy1), bfs(m_allNodes, &player, &enemy2));
 
 	while (!quitGame)
 	{	
+		
 		SDL_Event userInput;
 		//SDL_WaitEvent(&userInput);
 		bool playerMoved = false;
@@ -208,9 +210,20 @@ int main(int argc, char *argv[])
 			}
 			if (playerMoved)
 			{
-				enemy1.move();
-				enemy2.move();
+				if ((std::abs(player.getPosX() - enemy1.getPosX()) < 300) && (std::abs(player.getPosY() - enemy1.getPosY()) < 300))
+				{
+					enemy1.changeState(1);
+				}
+				if ((std::abs(player.getPosX() - enemy2.getPosX()) < 300) && (std::abs(player.getPosY() - enemy2.getPosY()) < 300))
+				{
+					enemy2.changeState(1);
+				}
+				std::vector<Node*> enemy1Path = bfs(m_allNodes, &player, &enemy1);
+				std::vector<Node*> enemy2Path = bfs(m_allNodes, &player, &enemy2);
+				enemy1.move(enemy1Path);
+				enemy2.move(enemy2Path);
 				draw(bfs(m_allNodes, &player, &enemy1), bfs(m_allNodes, &player, &enemy2));
+				playerMoved = false;
 			}
 		}
 		if ((player.getPosX() == enemy1.getPosX()) && (player.getPosY() == enemy1.getPosY()) || 
@@ -280,8 +293,14 @@ void draw(std::vector<Node*> path1, std::vector<Node*> path2)
 		m_allNodes.at(i).setNodeImage(s_tileImage.get());
 		m_allNodes.at(i).drawNode();
 	}
-	drawPath(path1, s_pathImage);
-	drawPath(path2, s_pathImage2);
+	if (enemy1.getState() == 1)
+	{
+		drawPath(path1, s_pathImage);
+	}
+	if (enemy2.getState() == 1)
+	{
+		drawPath(path2, s_pathImage2);
+	}
 	player.drawNode();
 	enemy1.drawNode();
 	enemy2.drawNode();

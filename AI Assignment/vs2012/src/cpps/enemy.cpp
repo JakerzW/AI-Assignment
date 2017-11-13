@@ -25,7 +25,7 @@ void Enemy::init(std::shared_ptr<Surface> screen, int enemyNumber)
 	setPosY(s_startPosY);
 }
 
-void Enemy::move()
+void Enemy::move(std::vector<Node*> path)
 {
 	switch (m_state)
 	{
@@ -85,14 +85,21 @@ void Enemy::move()
 					}
 				}
 			}
-			
+
+			break;
 		}
 		case 1:
 		{
 			//Chase
-
+			int x = path.at(path.size() - 2)->getPosX() / c_nodeWidth;
+			setPosX(x);
+			int y = (path.at(path.size() - 2)->getPosY() / c_nodeHeight);
+			setPosY(y);
+			break;
 		}
-				}
+		default: 
+			break;
+	}
 }
 
 int Enemy::getState()

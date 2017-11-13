@@ -10,7 +10,7 @@ class Enemy : public GameObject
 		std::shared_ptr<Surface> s_enemyImage;
 	public:
 		void init(std::shared_ptr<Surface> screen, int enemyNumber);
-		void move();
+		void move(std::vector<Node*> path);
 		int getState();
 		void changeState(int stateVal);
 };
